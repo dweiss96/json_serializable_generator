@@ -1,0 +1,28 @@
+# Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
+targets:
+  $default:
+    builders:
+      _test_generator:
+        generate_for:
+        - test/models/*
+
+builders:
+  json_serializable_generator:
+    import: "package:json_serializable_generator/json_serializable_generator.dart"
+    builder_factories:
+      - "jsonSerializableGenerator"
+    build_extensions: {".model.json": [".model.dart"]}
+    auto_apply: root_package
+    build_to: cache
+    defaults:
+      generate_for:
+        include:
+          - lib/**
+
+  _test_generator:
+    import: "test/test_generator.dart"
+    builder_factories:
+      - "testGenerator"
+    build_extensions: {".model.json": [".model.dart"]}
+    auto_apply: root_package
+    build_to: source

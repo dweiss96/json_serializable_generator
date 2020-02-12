@@ -1,0 +1,15 @@
+name: json_serializable_generator
+description: This generator creates a safe way to serialize and deserialize json strings using simple specifications TBD.
+version: 1.0.0-rc1
+
+environment:
+  sdk: '>=2.2.0 <3.0.0'
+
+dependencies:
+  meta: ^1.1.8
+  build: ^1.2.2
+
+dev_dependencies:
+  test: ^1.6.4
+  build_test: ^0.10.12+1
+  build_runner: ^1.7.4
