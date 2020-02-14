@@ -26,6 +26,16 @@ class SimpleSchema implements JsonSerializable {
     _isRequired = JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
     _name = JsonSerializable.fromJson<String>(json['name'].toString());
 
+  SimpleSchema copy({
+    int id,
+    bool isRequired,
+    String name,
+  }) => SimpleSchema(
+    id: id ?? _id,
+    isRequired: isRequired ?? _isRequired,
+    name: name ?? _name,
+  );
+
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{
     'id': _id,

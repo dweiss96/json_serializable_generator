@@ -53,6 +53,26 @@ class Example implements JsonSerializable {
     _someList = JsonSerializable.fromJsArray<String>(jsonEncode(json['someList'])),
     _someMapping = JsonSerializable.typedMapFromObject< int>(jsonEncode(json['someMapping']));
 
+  Example copy({
+    String id,
+    bool isRequired,
+    int count,
+    SimpleSchema simpleSchema,
+    ExternalResource someExternal,
+    SecondExternalResource anotherExternal,
+    List<String> someList,
+    Map<String, int> someMapping,
+  }) => Example(
+    id: id ?? _id,
+    isRequired: isRequired ?? _isRequired,
+    count: count ?? _count,
+    simpleSchema: simpleSchema ?? _simpleSchema,
+    someExternal: someExternal ?? _someExternal,
+    anotherExternal: anotherExternal ?? _anotherExternal,
+    someList: someList ?? _someList,
+    someMapping: someMapping ?? _someMapping,
+  );
+
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{
     'id': _id,

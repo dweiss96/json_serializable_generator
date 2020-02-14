@@ -24,8 +24,8 @@ class TypeDefinition {
 
   String get getter => '$type get $name => _$name;';
 
-  String get copyParam => '$type $name = _$name,';
-  String get copySetter => '$name: $name,';
+  String get copyParam => '$type $name,';
+  String get copySetter => '$name: $name ?? _$name,';
 
   String get variableCodeLine => 'final $type _$name;';
 

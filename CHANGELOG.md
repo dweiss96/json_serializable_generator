@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## 1.0.0
+- added flutter configuration to readme
+- add copy method to modify instances
 
 ### 1.0.0-rc2
 - added example

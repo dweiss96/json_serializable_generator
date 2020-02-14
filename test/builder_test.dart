@@ -7,6 +7,31 @@ import './models/ComplexSchema.model.dart';
 import './models/SimpleSchema.model.dart';
 
 void main() {
+  test('should create a class which can be copied', () {
+    final instance = SimpleSchema(
+      id: 123456,
+      isRequired: false,
+      name: 'Test Model Simple'
+    );
+
+    final copied = instance.copy(
+      id: 456
+    );
+
+    final anotherCopied = instance.copy(
+      id: 789,
+      isRequired: true
+    );
+
+    expect(copied.id, equals(456));
+    expect(copied.isRequired, equals(instance.isRequired));
+    expect(copied.name, equals(instance.name));
+
+    expect(anotherCopied.id, equals(789));
+    expect(anotherCopied.isRequired, equals(true));
+    expect(anotherCopied.name, equals(instance.name));
+  });
+
   test('should correctly serialize and deserialize simple types', () {
     final json = '''{
       "id": 123456,

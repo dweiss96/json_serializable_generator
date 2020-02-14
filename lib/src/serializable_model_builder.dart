@@ -86,8 +86,10 @@ class SerializableModelBuilder extends Builder {
     final getter =
         types.map((typeDefinition) => typeDefinition.getter).join('\n  ');
 
-    //String copyParams = types.map((typeDefinition) => typeDefinition.copyParam).join("\n    ");
-    //String copySetter = types.map((typeDefinition) => typeDefinition.copySetter).join("\n    ");
+    final copyParams =
+        types.map((typeDefinition) => typeDefinition.copyParam).join('\n    ');
+    final copySetter =
+        types.map((typeDefinition) => typeDefinition.copySetter).join('\n    ');
 
     final needsConvert = reads.contains('jsonEncode(');
 
@@ -110,6 +112,12 @@ class $name implements JsonSerializable {
 
   $name.fromJson(Map<String, dynamic> json) :
     $reads
+
+  $name copy({
+    $copyParams
+  }) => $name(
+    $copySetter
+  );
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{

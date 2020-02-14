@@ -2,11 +2,9 @@
 
 Provides Dart Build System builders for handling JSON.
 
-This README is still WIP
+This library reads `.model.json` files and automatically generates the dart model classes (`.model.dart`) for them.
 
-This library reads `.model.json` files and automatically generates the dart model (`.model.dart`) for them.
-
-Models should be in one directory
+Right now the models should be in one directory because otherwise you would need to specify the paths explicitly as described later.
 
 # Usage
 ## simple case
@@ -46,6 +44,9 @@ For other Types it is assumed that a named constructor `fromJson(Map<String, dyn
 
 # Build configuration
 
+## build to cache (default; not working with Flutter)
+
+`build.yaml`:
 ```
 targets:
   $default:
@@ -54,4 +55,28 @@ targets:
         generate_for:
           include:
             - lib/**
+```
+
+## build to source (necessary for Flutter)
+
+`build.yaml`:
+```
+targets:
+  $default:
+    builders:
+      _generator:
+        generate_for:
+          include:
+            - lib/**
+      json_serializable_generator:
+        enabled: false
+
+builders:
+  _generator:
+    import: "package:json_serializable_generator/json_serializable_generator.dart"
+    builder_factories:
+      - "jsonSerializableGenerator"
+    build_extensions: {".model.json": [".model.dart"]}
+    auto_apply: root_package
+    build_to: source
 ```
