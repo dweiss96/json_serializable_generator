@@ -4,7 +4,7 @@ import './SimpleSchema.model.dart';
 import './ExternalResource.model.dart';
 import './subFolder/SecondExternalResource.dart';
 
-class ComplexSchema implements JsonSerializable {
+class Example implements JsonSerializable {
   final String _id;
   final bool _isRequired;
   final int _count;
@@ -14,7 +14,7 @@ class ComplexSchema implements JsonSerializable {
   final List<String> _someList;
   final Map<String, int> _someMapping;
 
-  ComplexSchema({
+  Example({
     String id,
     bool isRequired,
     int count,
@@ -43,7 +43,7 @@ class ComplexSchema implements JsonSerializable {
   List<String> get someList => _someList;
   Map<String, int> get someMapping => _someMapping;
 
-  ComplexSchema.fromJson(Map<String, dynamic> json) :
+  Example.fromJson(Map<String, dynamic> json) :
     _id = JsonSerializable.fromJson<String>(json['id'].toString()),
     _isRequired = JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
     _count = JsonSerializable.fromJson<int>(json['count'].toString()),

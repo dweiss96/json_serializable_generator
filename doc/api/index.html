@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 0.29.1">
+  <meta name="description" content="json_serializable_generator API docs, for the Dart programming language.">
+  <title>json_serializable_generator - Dart API docs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="static-assets/github.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+  <!-- header placeholder -->
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://github.com/dweiss96/json_serializable_generator">json_serializable_generator package</a></li>
+  </ol>
+  <div class="self-name">json_serializable_generator</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="https://github.com/dweiss96/json_serializable_generator">json_serializable_generator package</a></li>
+    </ol>
+    
+    <h5 class="hidden-xs"><span class="package-name">json_serializable_generator</span> <span class="package-kind">package</span></h5>
+    <ol>
+          <li class="section-title">Libraries</li>
+          <li><a href="json_serializable/json_serializable-library.html">json_serializable</a></li>
+          <li><a href="json_serializable_generator/json_serializable_generator-library.html">json_serializable_generator</a></li>
+    </ol>
+  </div>
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <section class="desc markdown">
+        <h1 id="json_serializable_generator">json_serializable_generator</h1>
+<p>Provides Dart Build System builders for handling JSON.</p>
+<p>This README is still WIP</p>
+<p>This library reads <code>.model.json</code> files and automatically generates the dart model (<code>.model.dart</code>) for them.</p>
+<p>Models should be in one directory</p>
+<h1 id="usage">Usage</h1>
+<h2 id="simple-case">simple case</h2>
+<p>For the Types <code>int</code>, <code>double</code>, <code>bool</code>, <code>String</code>, <code>List</code>, <code>Map</code> the library relies on the default dart json serialization.
+For other Types it is assumed that a named constructor <code>fromJson(Map&lt;String, dynamic&gt; json)</code> exists.</p>
+<h3 id="example">Example</h3>
+<pre class="language-dart"><code>{
+  ...,
+  "reference": "SomeGeneratedResource",
+  "some_other_prop": "String"
+}
+</code></pre>
+<h2 id="complex-types">complex types</h2><table><thead><tr><th>field</th><th>is required</th><th>explenation</th><th>default</th></tr></thead><tbody><tr><td>type</td><td>🗹</td><td>The Type Name (class name)</td><td>-</td></tr><tr><td>readMethod</td><td>🗷</td><td>Method which is getting called with the json (<code>Function(String)</code>) and should return a class instance</td><td>named constructor or static method <code>fromJson(Map&lt;String, dynamic&gt; json)</code></td></tr><tr><td>writeMethod</td><td>🗷</td><td>Method to "write" the class to String, int, double, bool, Map or List</td><td><code>toJson()</code> method on an instance</td></tr><tr><td>importPath</td><td>🗷</td><td>path from which the resulting model class file can import this class. Should be an "absolute" path.</td><td>falls back to the generated <code>.model.dart</code> import</td></tr></tbody></table>
+<h3 id="example-2">Example</h3>
+<pre class="language-dart"><code>{
+  ...,
+  "externalResource": {
+    "type": "ExternalResource",
+    "writeMethod": "prettyWrite",
+    "readMethod": "prettyRead",
+    "importPath": "package:my_app/external_resources/ExternalResource.dart"
+  }
+}
+</code></pre>
+<h1 id="build-configuration">Build configuration</h1>
+<pre class="language-dart"><code>targets:
+  $default:
+    builders:
+      json_serializable_generator:
+        generate_for:
+          include:
+            - lib/**
+</code></pre>
+      </section>
+      
+        <section class="summary">
+            <h2>Libraries</h2>
+          <dl>
+            <dt id="json_serializable">
+              <span class="name"><a href="json_serializable/json_serializable-library.html">json_serializable</a></span>             
+            </dt>
+            <dd>
+              
+            </dd>            <dt id="json_serializable_generator">
+              <span class="name"><a href="json_serializable_generator/json_serializable_generator-library.html">json_serializable_generator</a></span>             
+            </dt>
+            <dd>
+              
+            </dd>          </dl>
+        </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    json_serializable_generator
+      1.0.0-rc2
+  </span>
+
+  <!-- footer-text placeholder -->
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/highlight.pack.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+<!-- footer placeholder -->
+
+</body>
+
+</html>

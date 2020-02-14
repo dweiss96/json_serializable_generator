@@ -5,73 +5,100 @@ import 'package:build/build.dart';
 import 'package:json_serializable_generator/src/type_definition.dart';
 import 'package:json_serializable_generator/src/type_analysis.dart';
 
-class SerializableModelBuilder extends Builder{
+class SerializableModelBuilder extends Builder {
   @override
   FutureOr<void> build(BuildStep buildStep) async {
-    final AssetId outputId = buildStep.inputId.changeExtension('.dart');
-    String source = await buildStep.readAsString(buildStep.inputId);
-    String name = buildStep.inputId.path.split('/').last.replaceAll(".model.json", "");
-    String output = writeModelClass(name, source);
+    final outputId = buildStep.inputId.changeExtension('.dart');
+    final source = await buildStep.readAsString(buildStep.inputId);
+    final name =
+        buildStep.inputId.path.split('/').last.replaceAll('.model.json', '');
+    final output = writeModelClass(name, source);
     await buildStep.writeAsString(outputId, output);
   }
 
   @override
   Map<String, List<String>> get buildExtensions => const {
-    '.model.json': ['.model.dart']
-  };
-
+        '.model.json': ['.model.dart']
+      };
 
   MapEntry<String, TypeDefinition> analyzeJson(String key, dynamic value) {
-    if(value is String) {
-      return MapEntry<String, TypeDefinition>(key, TypeDefinition(
-        name: key,
-        type: value,
-      ));
+    if (value is String) {
+      return MapEntry<String, TypeDefinition>(
+          key,
+          TypeDefinition(
+            name: key,
+            type: value,
+          ));
     }
-    Map<String, String> typeDefinition = (value as Map<String, dynamic>).map<String, String>((String k, dynamic v) => MapEntry<String, String>(k, v as String)); 
-    return MapEntry<String, TypeDefinition>(key, TypeDefinition(
-      name  : key,
-      type  : typeDefinition["type"],
-      read  : typeDefinition["readMethod"] == null ? "" : typeDefinition["readMethod"],
-      write : typeDefinition["writeMethod"] == null ? "" : typeDefinition["writeMethod"],
-      import: typeDefinition["importPath"] == null ? "" : typeDefinition["importPath"],
-    ));
+    final typeDefinition = (value as Map<String, dynamic>).map<String, String>(
+        (String k, dynamic v) => MapEntry<String, String>(k, v as String));
+    return MapEntry<String, TypeDefinition>(
+        key,
+        TypeDefinition(
+          name: key,
+          type: typeDefinition['type'],
+          read: typeDefinition['readMethod'] ?? '',
+          write: typeDefinition['writeMethod'] ?? '',
+          import: typeDefinition['importPath'] ?? '',
+        ));
   }
 
   String writeModelClass(String name, String model) {
-    List<TypeDefinition> types = jsonDecode(model).map<String, TypeDefinition>((dynamic k, dynamic v) => analyzeJson(k as String, v)).values.toList();
+    List<TypeDefinition> types = jsonDecode(model)
+        .map<String, TypeDefinition>(
+            (dynamic k, dynamic v) => analyzeJson(k as String, v))
+        .values
+        .toList();
 
-    String imports = types
-      .where((td) => !(isBasicType(td.type) || isList(td.type) || isMap(td.type)))
-      .map((td) => td.importLine).join("\n");
+    final imports = types
+        .where((td) =>
+            !(isBasicType(td.type) || isList(td.type) || isMap(td.type)))
+        .map((td) => td.importLine)
+        .join('\n');
 
-    String classVariables = types.map((typeDefinition) => typeDefinition.variableCodeLine).join("\n  ");
-    
-    String generatedReadLines = types.map((typeDefinition) => typeDefinition.readCodeLine).join("\n    ");
+    final classVariables = types
+        .map((typeDefinition) => typeDefinition.variableCodeLine)
+        .join('\n  ');
 
-    String reads = generatedReadLines.substring(0, generatedReadLines.length-1) + ";";
+    final generatedReadLines = types
+        .map((typeDefinition) => typeDefinition.readCodeLine)
+        .join('\n    ');
 
-    String writes = types.map((typeDefinition) => typeDefinition.writeCodeLine).join("\n    ");
+    final reads =
+        generatedReadLines.substring(0, generatedReadLines.length - 1) + ';';
 
-    String constructorParams = types.map((typeDefinition) => typeDefinition.constructorParameter).join("\n    ");
+    final writes = types
+        .map((typeDefinition) => typeDefinition.writeCodeLine)
+        .join('\n    ');
 
-    String generatedConstructorInits = types.map((typeDefinition) => typeDefinition.constructorInitializer).join("\n    ");
+    final constructorParams = types
+        .map((typeDefinition) => typeDefinition.constructorParameter)
+        .join('\n    ');
 
-    String constructorInits = generatedConstructorInits.substring(0, generatedConstructorInits.length-1) + ";";
+    final generatedConstructorInits = types
+        .map((typeDefinition) => typeDefinition.constructorInitializer)
+        .join('\n    ');
 
-    String getter = types.map((typeDefinition) => typeDefinition.getter).join("\n  ");
+    final constructorInits = generatedConstructorInits.substring(
+            0, generatedConstructorInits.length - 1) +
+        ';';
 
-    String copyParams = types.map((typeDefinition) => typeDefinition.copyParam).join("\n    ");
-    String copySetter = types.map((typeDefinition) => typeDefinition.copySetter).join("\n    ");
+    final getter =
+        types.map((typeDefinition) => typeDefinition.getter).join('\n  ');
 
-    String unnamedConstructor = """$name({
+    //String copyParams = types.map((typeDefinition) => typeDefinition.copyParam).join("\n    ");
+    //String copySetter = types.map((typeDefinition) => typeDefinition.copySetter).join("\n    ");
+
+    final needsConvert = reads.contains('jsonEncode(');
+
+    final unnamedConstructor = '''$name({
     $constructorParams
   }) :
     $constructorInits
-""";
+''';
     return """
-import 'dart:convert';
 import 'package:json_serializable_generator/json_serializable.dart';
+${needsConvert ? "import 'dart:convert';" : ""}
 $imports
 
 class $name implements JsonSerializable {
@@ -91,4 +118,4 @@ class $name implements JsonSerializable {
 }
 """;
   }
-} 
+}

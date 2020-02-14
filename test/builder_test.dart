@@ -8,19 +8,19 @@ import './models/SimpleSchema.model.dart';
 
 void main() {
   test('should correctly serialize and deserialize simple types', () {
-    String json = """{
+    final json = '''{
       "id": 123456,
       "isRequired": false,
       "name": "Test Model Simple"
-    }""";
+    }''';
 
-    SimpleSchema instance = SimpleSchema(
+    final instance = SimpleSchema(
       id: 123456,
       isRequired: false,
-      name: "Test Model Simple"
+      name: 'Test Model Simple'
     );
 
-    SimpleSchema deserialized = JsonSerializable.fromJson<SimpleSchema>(json);
+    final deserialized = JsonSerializable.fromJson<SimpleSchema>(json);
 
     expect(deserialized.id, equals(instance.id));
     expect(deserialized.isRequired, equals(instance.isRequired));
@@ -30,7 +30,7 @@ void main() {
   });
 
   test('should correctly serialize and deserialize complex types', () {
-    String json = """{
+    final json = '''{
       "id": "abcdefg",
       "isRequired": true,
       "count": 42,
@@ -46,34 +46,34 @@ void main() {
         "Adam": 1,
         "Benjamin": 2
       }
-    }""";
+    }''';
 
-    SimpleSchema simpleSchema = SimpleSchema(
+    final simpleSchema = SimpleSchema(
       id: 123456,
       isRequired: false,
-      name: "Test Model Simple"
+      name: 'Test Model Simple'
     );
 
-    ExternalResource someExternal = ExternalResource(
-      id: "some-id",
-      stringValue: "string",
+    final someExternal = ExternalResource(
+      id: 'some-id',
+      stringValue: 'string',
       intValue: 123,
       boolValue: false,
     );
-    SecondExternalResource anotherExternal = SecondExternalResource(
-      id: "another-id",
-      stringValue: "string",
+    final anotherExternal = SecondExternalResource(
+      id: 'another-id',
+      stringValue: 'string',
       intValue: 123,
       boolValue: false,
     );
-    List<String> someList = ["Adam", "Benjamin"];
-    Map<String, int> someMapping = {
-      "Adam": 1,
-      "Benjamin": 2
+    final someList = ['Adam', 'Benjamin'];
+    final someMapping = {
+      'Adam': 1,
+      'Benjamin': 2
     };
 
-    ComplexSchema instance = ComplexSchema(
-      id: "abcdefg",
+    final instance = ComplexSchema(
+      id: 'abcdefg',
       isRequired: true,
       count: 42,
       simpleSchema: simpleSchema,
@@ -83,7 +83,7 @@ void main() {
       someMapping: someMapping,
     );
 
-    ComplexSchema deserialized = JsonSerializable.fromJson<ComplexSchema>(json);
+    final deserialized = JsonSerializable.fromJson<ComplexSchema>(json);
 
     expect(deserialized.id, equals(instance.id));
     expect(deserialized.isRequired, equals(instance.isRequired));
