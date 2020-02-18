@@ -1,8 +1,9 @@
+import 'package:json_serializable_generator/json_model.dart';
 import 'package:json_serializable_generator/json_serializable.dart';
 
 
 
-class SimpleSchema implements JsonSerializable {
+class SimpleSchema extends JsonModel {
   final int _id;
   final bool _isRequired;
   final String _name;
@@ -20,11 +21,13 @@ class SimpleSchema implements JsonSerializable {
   int get id => _id;
   bool get isRequired => _isRequired;
   String get name => _name;
-
-  SimpleSchema.fromJson(Map<String, dynamic> json) :
-    _id = JsonSerializable.fromJson<int>(json['id'].toString()),
-    _isRequired = JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
-    _name = JsonSerializable.fromJson<String>(json['name'].toString());
+  
+  @override
+  SimpleSchema fromJson(Map<String, dynamic> json) => SimpleSchema(
+    id: JsonSerializable.fromJson<int>(json['id'].toString()),
+    isRequired: JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
+    name: JsonSerializable.fromJson<String>(json['name'].toString()),
+  );
 
   SimpleSchema copy({
     int id,

@@ -7,6 +7,9 @@ import './models/ComplexSchema.model.dart';
 import './models/SimpleSchema.model.dart';
 
 void main() {
+  final _simpleSchemaSeed = SimpleSchema();
+  final _complexSchemaSeed = ComplexSchema();
+
   test('should create a class which can be copied', () {
     final instance = SimpleSchema(
       id: 123456,
@@ -45,7 +48,7 @@ void main() {
       name: 'Test Model Simple'
     );
 
-    final deserialized = JsonSerializable.fromJson<SimpleSchema>(json);
+    final deserialized = JsonSerializable.fromJson<SimpleSchema>(json, seed: _simpleSchemaSeed);
 
     expect(deserialized.id, equals(instance.id));
     expect(deserialized.isRequired, equals(instance.isRequired));
@@ -108,7 +111,7 @@ void main() {
       someMapping: someMapping,
     );
 
-    final deserialized = JsonSerializable.fromJson<ComplexSchema>(json);
+    final deserialized = JsonSerializable.fromJson<ComplexSchema>(json, seed: _complexSchemaSeed);
 
     expect(deserialized.id, equals(instance.id));
     expect(deserialized.isRequired, equals(instance.isRequired));

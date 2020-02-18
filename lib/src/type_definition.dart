@@ -33,17 +33,17 @@ class TypeDefinition {
     if (read.trim().isEmpty) {
       if (isBasicType(type)) {
         //jsonEncode will ruin it for basic types
-        return "_$name = JsonSerializable.fromJson<$type>(json['$name'].toString()),";
+        return "$name: JsonSerializable.fromJson<$type>(json['$name'].toString()),";
       }
       if (isList(type)) {
-        return "_$name = JsonSerializable.fromJsArray<${extractListTypeName(type)}>(jsonEncode(json['$name'])),";
+        return "$name: JsonSerializable.fromJsArray<${extractListTypeName(type)}>(jsonEncode(json['$name'])),";
       }
       if (isMap(type)) {
-        return "_$name = JsonSerializable.typedMapFromObject<${extractMapValueTypeName(type)}>(jsonEncode(json['$name'])),";
+        return "$name: JsonSerializable.typedMapFromObject<${extractMapValueTypeName(type)}>(jsonEncode(json['$name'])),";
       }
-      return "_$name = JsonSerializable.fromJson<$type>(jsonEncode(json['$name'])),";
+      return "$name: JsonSerializable.fromJson<$type>(jsonEncode(json['$name']), seed: $type()),";
     }
-    return "_$name = $type.$read(json['$name']),";
+    return "$name: $type.$read(json['$name']),";
   }
 
   String get writeCodeLine {

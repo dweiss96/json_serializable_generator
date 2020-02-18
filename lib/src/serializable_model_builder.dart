@@ -60,12 +60,9 @@ class SerializableModelBuilder extends Builder {
         .map((typeDefinition) => typeDefinition.variableCodeLine)
         .join('\n  ');
 
-    final generatedReadLines = types
+    final reads = types
         .map((typeDefinition) => typeDefinition.readCodeLine)
         .join('\n    ');
-
-    final reads =
-        generatedReadLines.substring(0, generatedReadLines.length - 1) + ';';
 
     final writes = types
         .map((typeDefinition) => typeDefinition.writeCodeLine)
@@ -99,19 +96,22 @@ class SerializableModelBuilder extends Builder {
     $constructorInits
 ''';
     return """
+import 'package:json_serializable_generator/json_model.dart';
 import 'package:json_serializable_generator/json_serializable.dart';
 ${needsConvert ? "import 'dart:convert';" : ""}
 $imports
 
-class $name implements JsonSerializable {
+class $name extends JsonModel {
   $classVariables
 
   $unnamedConstructor
 
   $getter
-
-  $name.fromJson(Map<String, dynamic> json) :
+  
+  @override
+  $name fromJson(Map<String, dynamic> json) => $name(
     $reads
+  );
 
   $name copy({
     $copyParams

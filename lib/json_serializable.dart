@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:mirrors';
+
+import 'package:json_serializable_generator/json_model.dart';
 
 /// This abstract class is the base class for all generated models.
-abstract class JsonSerializable {
-  /// Returns a map representing the json output which will be used by dart to serialize the class.
-  ///
-  /// Invoked recursively on generated Models.
-  Map<String, dynamic> toJson();
+class JsonSerializable {
+  JsonSerializable();
 
   /// Invoked for List<T> types and needs a json array string as input.
   static List<T> fromJsArray<T>(String json) =>
@@ -20,16 +18,12 @@ abstract class JsonSerializable {
       .map<String, T>((String k, dynamic v) => MapEntry<String, T>(k, v as T));
 
   /// Invoked for core types and for unknown ones having no explicit write method specified.
-  static T fromJson<T>(String json) {
+  static T fromJson<T>(String json, { T seed }) {
     if (T == String) return json as T;
 
-    try {
-      var classMirror = reflectClass(T);
-      var instanceMirror = classMirror
-          .newInstance(Symbol('fromJson'), <dynamic>[jsonDecode(json)]);
-      T instance = instanceMirror.reflectee;
-      return instance;
-    } on NoSuchMethodError {
+    if (seed is JsonModel) {
+      return seed.fromJson(jsonDecode(json)) as T;
+    } else {
       return jsonDecode(json) as T;
     }
   }

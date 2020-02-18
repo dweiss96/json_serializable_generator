@@ -1,10 +1,11 @@
+import 'package:json_serializable_generator/json_model.dart';
 import 'package:json_serializable_generator/json_serializable.dart';
 import 'dart:convert';
 import './SimpleSchema.model.dart';
 import './ExternalResource.model.dart';
 import './subFolder/SecondExternalResource.dart';
 
-class Example implements JsonSerializable {
+class Example extends JsonModel {
   final String _id;
   final bool _isRequired;
   final int _count;
@@ -42,16 +43,18 @@ class Example implements JsonSerializable {
   SecondExternalResource get anotherExternal => _anotherExternal;
   List<String> get someList => _someList;
   Map<String, int> get someMapping => _someMapping;
-
-  Example.fromJson(Map<String, dynamic> json) :
-    _id = JsonSerializable.fromJson<String>(json['id'].toString()),
-    _isRequired = JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
-    _count = JsonSerializable.fromJson<int>(json['count'].toString()),
-    _simpleSchema = JsonSerializable.fromJson<SimpleSchema>(jsonEncode(json['simpleSchema'])),
-    _someExternal = ExternalResource.prettyRead(json['someExternal']),
-    _anotherExternal = SecondExternalResource.prettyRead(json['anotherExternal']),
-    _someList = JsonSerializable.fromJsArray<String>(jsonEncode(json['someList'])),
-    _someMapping = JsonSerializable.typedMapFromObject< int>(jsonEncode(json['someMapping']));
+  
+  @override
+  Example fromJson(Map<String, dynamic> json) => Example(
+    id: JsonSerializable.fromJson<String>(json['id'].toString()),
+    isRequired: JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
+    count: JsonSerializable.fromJson<int>(json['count'].toString()),
+    simpleSchema: JsonSerializable.fromJson<SimpleSchema>(jsonEncode(json['simpleSchema']), seed: SimpleSchema()),
+    someExternal: ExternalResource.prettyRead(json['someExternal']),
+    anotherExternal: SecondExternalResource.prettyRead(json['anotherExternal']),
+    someList: JsonSerializable.fromJsArray<String>(jsonEncode(json['someList'])),
+    someMapping: JsonSerializable.typedMapFromObject< int>(jsonEncode(json['someMapping'])),
+  );
 
   Example copy({
     String id,
