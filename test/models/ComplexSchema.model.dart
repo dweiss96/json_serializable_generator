@@ -14,6 +14,8 @@ class ComplexSchema extends JsonModel {
   final SecondExternalResource _anotherExternal;
   final List<String> _someList;
   final Map<String, int> _someMapping;
+  final String _sillyDashModel;
+  final String _sillyUnderscoreModel;
 
   ComplexSchema({
     String id,
@@ -24,6 +26,8 @@ class ComplexSchema extends JsonModel {
     SecondExternalResource anotherExternal,
     List<String> someList,
     Map<String, int> someMapping,
+    String sillyDashModel,
+    String sillyUnderscoreModel,
   }) :
     _id = id,
     _isRequired = isRequired,
@@ -32,7 +36,9 @@ class ComplexSchema extends JsonModel {
     _someExternal = someExternal,
     _anotherExternal = anotherExternal,
     _someList = someList,
-    _someMapping = someMapping;
+    _someMapping = someMapping,
+    _sillyDashModel = sillyDashModel,
+    _sillyUnderscoreModel = sillyUnderscoreModel;
 
 
   String get id => _id;
@@ -43,17 +49,21 @@ class ComplexSchema extends JsonModel {
   SecondExternalResource get anotherExternal => _anotherExternal;
   List<String> get someList => _someList;
   Map<String, int> get someMapping => _someMapping;
+  String get sillyDashModel => _sillyDashModel;
+  String get sillyUnderscoreModel => _sillyUnderscoreModel;
   
   @override
   ComplexSchema fromJson(Map<String, dynamic> json) => ComplexSchema(
-    id: JsonSerializable.fromJson<String>(json['id'].toString()),
+    id: JsonSerializable.fromJson<String>(json['ID'].toString()),
     isRequired: JsonSerializable.fromJson<bool>(json['isRequired'].toString()),
     count: JsonSerializable.fromJson<int>(json['count'].toString()),
     simpleSchema: JsonSerializable.fromJson<SimpleSchema>(jsonEncode(json['simpleSchema']), seed: SimpleSchema()),
     someExternal: ExternalResource.prettyRead(json['someExternal']),
-    anotherExternal: SecondExternalResource.prettyRead(json['anotherExternal']),
+    anotherExternal: SecondExternalResource.prettyRead(json['AnotherExternal']),
     someList: JsonSerializable.fromJsArray<String>(jsonEncode(json['someList'])),
     someMapping: JsonSerializable.typedMapFromObject< int>(jsonEncode(json['someMapping'])),
+    sillyDashModel: JsonSerializable.fromJson<String>(json['SILLY-DASH-MODEL'].toString()),
+    sillyUnderscoreModel: JsonSerializable.fromJson<String>(json['SILLY_UNDERSCORE_MODEL'].toString()),
   );
 
   ComplexSchema copy({
@@ -65,6 +75,8 @@ class ComplexSchema extends JsonModel {
     SecondExternalResource anotherExternal,
     List<String> someList,
     Map<String, int> someMapping,
+    String sillyDashModel,
+    String sillyUnderscoreModel,
   }) => ComplexSchema(
     id: id ?? _id,
     isRequired: isRequired ?? _isRequired,
@@ -74,17 +86,21 @@ class ComplexSchema extends JsonModel {
     anotherExternal: anotherExternal ?? _anotherExternal,
     someList: someList ?? _someList,
     someMapping: someMapping ?? _someMapping,
+    sillyDashModel: sillyDashModel ?? _sillyDashModel,
+    sillyUnderscoreModel: sillyUnderscoreModel ?? _sillyUnderscoreModel,
   );
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'id': _id,
+    'ID': _id,
     'isRequired': _isRequired,
     'count': _count,
     'simpleSchema': _simpleSchema.toJson(),
     'someExternal': _someExternal.prettyWrite(),
-    'anotherExternal': _anotherExternal.prettyWrite(),
+    'AnotherExternal': _anotherExternal.prettyWrite(),
     'someList': _someList,
     'someMapping': _someMapping,
+    'SILLY-DASH-MODEL': _sillyDashModel,
+    'SILLY_UNDERSCORE_MODEL': _sillyUnderscoreModel,
   };
 }

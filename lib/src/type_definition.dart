@@ -1,8 +1,10 @@
 import 'package:meta/meta.dart';
 import 'package:json_serializable_generator/src/type_analysis.dart';
+import 'utils.dart' as utils;
 
 class TypeDefinition {
   final String name;
+  final String formattedName;
   final String type;
   final String read;
   final String write;
@@ -14,45 +16,45 @@ class TypeDefinition {
     this.read = '',
     this.write = '',
     this.import = '',
-  });
+  }) : formattedName = utils.toLowerCamelCase(name);
 
   String get importLine =>
       import.isEmpty ? "import './$type.model.dart';" : "import '$import';";
 
-  String get constructorParameter => '$type $name,';
-  String get constructorInitializer => '_$name = $name,';
+  String get constructorParameter => '$type $formattedName,';
+  String get constructorInitializer => '_$formattedName = $formattedName,';
 
-  String get getter => '$type get $name => _$name;';
+  String get getter => '$type get $formattedName => _$formattedName;';
 
-  String get copyParam => '$type $name,';
-  String get copySetter => '$name: $name ?? _$name,';
+  String get copyParam => '$type $formattedName,';
+  String get copySetter => '$formattedName: $formattedName ?? _$formattedName,';
 
-  String get variableCodeLine => 'final $type _$name;';
+  String get variableCodeLine => 'final $type _$formattedName;';
 
   String get readCodeLine {
     if (read.trim().isEmpty) {
       if (isBasicType(type)) {
         //jsonEncode will ruin it for basic types
-        return "$name: JsonSerializable.fromJson<$type>(json['$name'].toString()),";
+        return "$formattedName: JsonSerializable.fromJson<$type>(json['$name'].toString()),";
       }
       if (isList(type)) {
-        return "$name: JsonSerializable.fromJsArray<${extractListTypeName(type)}>(jsonEncode(json['$name'])),";
+        return "$formattedName: JsonSerializable.fromJsArray<${extractListTypeName(type)}>(jsonEncode(json['$name'])),";
       }
       if (isMap(type)) {
-        return "$name: JsonSerializable.typedMapFromObject<${extractMapValueTypeName(type)}>(jsonEncode(json['$name'])),";
+        return "$formattedName: JsonSerializable.typedMapFromObject<${extractMapValueTypeName(type)}>(jsonEncode(json['$name'])),";
       }
-      return "$name: JsonSerializable.fromJson<$type>(jsonEncode(json['$name']), seed: $type()),";
+      return "$formattedName: JsonSerializable.fromJson<$type>(jsonEncode(json['$name']), seed: $type()),";
     }
-    return "$name: $type.$read(json['$name']),";
+    return "$formattedName: $type.$read(json['$name']),";
   }
 
   String get writeCodeLine {
     if (write.trim().isEmpty) {
       if (!(isBasicType(type) || isMap(type) || isList(type))) {
-        return "'$name': _$name.toJson(),";
+        return "'$name': _$formattedName.toJson(),";
       }
-      return "'$name': _$name,";
+      return "'$name': _$formattedName,";
     }
-    return "'$name': _$name.$write(),";
+    return "'$name': _$formattedName.$write(),";
   }
 }

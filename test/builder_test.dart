@@ -59,7 +59,7 @@ void main() {
 
   test('should correctly serialize and deserialize complex types', () {
     final json = '''{
-      "id": "abcdefg",
+      "ID": "abcdefg",
       "isRequired": true,
       "count": 42,
       "simpleSchema": {
@@ -68,12 +68,14 @@ void main() {
         "name": "Test Model Simple"
       },
       "someExternal": "some-id;string;false;123;",
-      "anotherExternal": "another-id;string;false;123;",
+      "AnotherExternal": "another-id;string;false;123;",
       "someList": ["Adam", "Benjamin"],
       "someMapping": {
         "Adam": 1,
         "Benjamin": 2
-      }
+      },
+      "SILLY-DASH-MODEL": "test",
+      "SILLY_UNDERSCORE_MODEL": "1234"
     }''';
 
     final simpleSchema = SimpleSchema(
@@ -109,6 +111,8 @@ void main() {
       anotherExternal: anotherExternal,
       someList: someList,
       someMapping: someMapping,
+      sillyDashModel: 'test',
+      sillyUnderscoreModel: '1234',
     );
 
     final deserialized = JsonSerializable.fromJson<ComplexSchema>(json, seed: _complexSchemaSeed);

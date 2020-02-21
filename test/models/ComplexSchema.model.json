@@ -1,5 +1,5 @@
 {
-  "id": "String",
+  "ID": "String",
   "isRequired": "bool",
   "count": "int",
   "simpleSchema": "SimpleSchema",
@@ -8,12 +8,14 @@
     "writeMethod": "prettyWrite",
     "readMethod": "prettyRead"
   },
-  "anotherExternal": {
+  "AnotherExternal": {
     "type": "SecondExternalResource",
     "writeMethod": "prettyWrite",
     "readMethod": "prettyRead",
     "importPath": "./subFolder/SecondExternalResource.dart"
   },
   "someList": "List<String>",
-  "someMapping": "Map<String, int>"
+  "someMapping": "Map<String, int>",
+  "SILLY-DASH-MODEL": "String",
+  "SILLY_UNDERSCORE_MODEL": "String"
 }
