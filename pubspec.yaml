@@ -3,7 +3,7 @@ description: This generator creates a safe way to serialize and deserialize json
 homepage: https://github.com/dweiss96/json_serializable_generator
 repository: https://github.com/dweiss96/json_serializable_generator/tree/master
 issues: https://github.com/dweiss96/json_serializable_generator/issues
-version: 1.0.0
+version: 1.0.1
 
 environment:
   sdk: '>=2.2.0 <3.0.0'
