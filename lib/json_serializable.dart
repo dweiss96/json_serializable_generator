@@ -24,6 +24,9 @@ class JsonSerializable {
     if (seed is JsonModel) {
       return seed.fromJson(jsonDecode(json)) as T;
     } else {
+      dynamic decoded = jsonDecode(json);
+      if(decoded is int && T == double) return decoded.toDouble() as T;
+      if(decoded is double && T == int) return decoded.toInt() as T;
       return jsonDecode(json) as T;
     }
   }

@@ -1,7 +1,7 @@
 bool isBasicType(String typeName) => [
       'bool',
-      'double'
-          'dynamic',
+      'double',
+      'dynamic',
       'int',
       'null',
       'String',
@@ -15,4 +15,7 @@ String extractListTypeName(String typeName) =>
     RegExp(r'List<(.*)>').firstMatch(typeName).group(1);
 
 String extractMapValueTypeName(String typeName) =>
-    RegExp(r'Map<String,(.*)>').firstMatch(typeName).group(1);
+    RegExp(r'Map<.*,(.*)>').firstMatch(typeName).group(1);
+
+String extractMapKeyTypeName(String typeName) =>
+    RegExp(r'Map<(.*),.*>').firstMatch(typeName).group(1);

@@ -105,7 +105,7 @@ class SerializableModelBuilder extends Builder {
 
     final importCode = imports.join('\n');
 
-    return """$importCode
+    return '''$importCode
 
 class $name extends JsonModel {
   $classVariables
@@ -130,6 +130,6 @@ class $name extends JsonModel {
     $writes
   };
 }
-""";
+''';
   }
 }
