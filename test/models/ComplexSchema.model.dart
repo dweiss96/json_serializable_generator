@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'package:json_serializable_generator/json_model.dart';
 import 'package:json_serializable_generator/json_serializable.dart';
-import 'dart:convert';
-import './SimpleSchema.model.dart';
 import './ExternalResource.model.dart';
+import './SimpleSchema.model.dart';
 import './subFolder/SecondExternalResource.dart';
 
 class ComplexSchema extends JsonModel {

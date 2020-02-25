@@ -50,12 +50,6 @@ class SerializableModelBuilder extends Builder {
         .values
         .toList();
 
-    final imports = types
-        .where((td) =>
-            !(isBasicType(td.type) || isList(td.type) || isMap(td.type)))
-        .map((td) => td.importLine)
-        .join('\n');
-
     final classVariables = types
         .map((typeDefinition) => typeDefinition.variableCodeLine)
         .join('\n  ');
@@ -95,11 +89,23 @@ class SerializableModelBuilder extends Builder {
   }) :
     $constructorInits
 ''';
-    return """
-import 'package:json_serializable_generator/json_model.dart';
-import 'package:json_serializable_generator/json_serializable.dart';
-${needsConvert ? "import 'dart:convert';" : ""}
-$imports
+
+    final typeImports = types
+        .where((td) =>
+    !(isBasicType(td.type) || isList(td.type) || isMap(td.type)))
+        .map((td) => td.importLine).toList();
+    typeImports.sort((a, b) => a.compareTo(b));
+    final imports = <String>[];
+    if(needsConvert) imports.add("import 'dart:convert';");
+    imports.addAll([
+      "import 'package:json_serializable_generator/json_model.dart';",
+      "import 'package:json_serializable_generator/json_serializable.dart';",
+    ]);
+    imports.addAll(typeImports);
+
+    final importCode = imports.join('\n');
+
+    return """$importCode
 
 class $name extends JsonModel {
   $classVariables

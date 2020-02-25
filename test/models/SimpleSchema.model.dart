@@ -1,8 +1,6 @@
 import 'package:json_serializable_generator/json_model.dart';
 import 'package:json_serializable_generator/json_serializable.dart';
 
-
-
 class SimpleSchema extends JsonModel {
   final int _id;
   final bool _isRequired;
