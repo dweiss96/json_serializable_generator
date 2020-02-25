@@ -18,15 +18,19 @@ class JsonSerializable {
       .map<String, T>((String k, dynamic v) => MapEntry<String, T>(k, v as T));
 
   /// Invoked for core types and for unknown ones having no explicit write method specified.
-  static T fromJson<T>(String json, { T seed }) {
+  static T fromJson<T>(String json, {T seed}) {
     if (T == String) return json as T;
 
     if (seed is JsonModel) {
       return seed.fromJson(jsonDecode(json)) as T;
     } else {
       dynamic decoded = jsonDecode(json);
-      if(decoded is int && T == double) return decoded.toDouble() as T;
-      if(decoded is double && T == int) return decoded.toInt() as T;
+      if (decoded is int && T == double) {
+        return decoded.toDouble() as T;
+      }
+      if (decoded is double && T == int) {
+        return decoded.toInt() as T;
+      }
       return jsonDecode(json) as T;
     }
   }

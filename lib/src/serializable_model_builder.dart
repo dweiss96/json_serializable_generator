@@ -92,11 +92,12 @@ class SerializableModelBuilder extends Builder {
 
     final typeImports = types
         .where((td) =>
-    !(isBasicType(td.type) || isList(td.type) || isMap(td.type)))
-        .map((td) => td.importLine).toList();
+            !(isBasicType(td.type) || isList(td.type) || isMap(td.type)))
+        .map((td) => td.importLine)
+        .toList();
     typeImports.sort((a, b) => a.compareTo(b));
     final imports = <String>[];
-    if(needsConvert) imports.add("import 'dart:convert';");
+    if (needsConvert) imports.add("import 'dart:convert';");
     imports.addAll([
       "import 'package:json_serializable_generator/json_model.dart';",
       "import 'package:json_serializable_generator/json_serializable.dart';",
