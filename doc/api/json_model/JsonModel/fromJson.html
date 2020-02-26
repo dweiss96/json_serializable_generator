@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the jsonSerializableGenerator function from the json_serializable_generator library, for the Dart programming language.">
-  <title>jsonSerializableGenerator function - json_serializable_generator library - Dart API</title>
+  <meta name="description" content="API docs for the fromJson method from the JsonModel class, for the Dart programming language.">
+  <title>fromJson method - JsonModel class - json_model library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
-  <base href="..">
+  <base href="../..">
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -25,10 +25,11 @@
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="index.html">json_serializable_generator</a></li>
-    <li><a href="json_serializable_generator/json_serializable_generator-library.html">json_serializable_generator</a></li>
-    <li class="self-crumb">jsonSerializableGenerator function</li>
+    <li><a href="json_model/json_model-library.html">json_model</a></li>
+    <li><a href="json_model/JsonModel-class.html">JsonModel</a></li>
+    <li class="self-crumb">fromJson abstract method</li>
   </ol>
-  <div class="self-name">jsonSerializableGenerator</div>
+  <div class="self-name">fromJson</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -45,41 +46,55 @@
     
     <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
       <li><a href="index.html">json_serializable_generator</a></li>
-      <li><a href="json_serializable_generator/json_serializable_generator-library.html">json_serializable_generator</a></li>
-      <li class="self-crumb">jsonSerializableGenerator function</li>
+      <li><a href="json_model/json_model-library.html">json_model</a></li>
+      <li><a href="json_model/JsonModel-class.html">JsonModel</a></li>
+      <li class="self-crumb">fromJson abstract method</li>
     </ol>
     
-    <h5>json_serializable_generator library</h5>
+    <h5>JsonModel class</h5>
     <ol>
     
+        <li class="section-title"><a href="json_model/JsonModel-class.html#constructors">Constructors</a></li>
+        <li><a href="json_model/JsonModel/JsonModel.html">JsonModel</a></li>
+    
+        <li class="section-title inherited">
+            <a href="json_model/JsonModel-class.html#instance-properties">Properties</a>
+        </li>
+        <li class="inherited"><a href="json_model/JsonModel/hashCode.html">hashCode</a></li>
+        <li class="inherited"><a href="json_model/JsonModel/runtimeType.html">runtimeType</a></li>
+    
+        <li class="section-title"><a href="json_model/JsonModel-class.html#instance-methods">Methods</a></li>
+        <li><a href="json_model/JsonModel/fromJson.html">fromJson</a></li>
+        <li><a href="json_model/JsonModel/toJson.html">toJson</a></li>
+        <li class="inherited"><a href="json_model/JsonModel/noSuchMethod.html">noSuchMethod</a></li>
+        <li class="inherited"><a href="json_model/JsonModel/toString.html">toString</a></li>
+    
+        <li class="section-title inherited"><a href="json_model/JsonModel-class.html#operators">Operators</a></li>
+        <li class="inherited"><a href="json_model/JsonModel/operator_equals.html">operator ==</a></li>
     
     
-    
-    
-      <li class="section-title"><a href="json_serializable_generator/json_serializable_generator-library.html#functions">Functions</a></li>
-      <li><a href="json_serializable_generator/jsonSerializableGenerator.html">jsonSerializableGenerator</a></li>
     
     
     
     </ol>
-  </div><!--/.sidebar-offcanvas-left-->
+  </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-function">jsonSerializableGenerator</span> function </h1></div>
+      <div><h1><span class="kind-method">fromJson</span> method</h1></div>
 
     <section class="multi-line-signature">
-        <span class="returntype">Builder</span>
-                <span class="name ">jsonSerializableGenerator</span>
-(<wbr><span class="parameter" id="jsonSerializableGenerator-param-builderOptions"><span class="type-annotation">BuilderOptions</span> <span class="parameter-name">builderOptions</span></span>)
+      <span class="returntype"><a href="json_model/JsonModel-class.html">JsonModel</a></span>
+            <span class="name ">fromJson</span>
+(<wbr><span class="parameter" id="fromJson-param-json"><span class="type-annotation">Map<span class="signature">&lt;<wbr><span class="type-parameter">String</span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">json</span></span>)
+      
     </section>
     <section class="desc markdown">
-      <p>Returns the Instance for the model class Builder</p>
+      <p>Deserializes the json string into the class.</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">Builder jsonSerializableGenerator(BuilderOptions builderOptions) =&gt;
-    SerializableModelBuilder();</code></pre>
+      <pre class="language-dart"><code class="language-dart">JsonModel fromJson(Map&lt;String, dynamic&gt; json);</code></pre>
     </section>
 
   </div> <!-- /.main-content -->

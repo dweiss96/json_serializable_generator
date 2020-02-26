@@ -24,10 +24,10 @@ For other Types it is assumed that a named constructor `fromJson(Map<String, dyn
 
 | field       | is required | explanation                                                                                          | default                                                          |
 |:-----------:|:-----------:|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
-| type        |  &#128505;  | The Type Name (class name)                                                                           | -                                                                |
-| readMethod  |  &#128503;  | Method which is getting called with the json (`Function(String)`) and should return a class instance | named constructor or static method `fromJson(Map<String, dynamic> json)` |
-| writeMethod |  &#128503;  | Method to "write" the class to String, int, double, bool, Map or List                                | `toJson()` method on an instance                |
-| importPath  |  &#128503;  | path from which the resulting model class file can import this class. Should be an "absolute" path.  | falls back to the generated `.model.dart` import                 |
+| type        |  YES        | The Type Name (class name)                                                                           | -                                                                |
+| readMethod  |   No        | Method which is getting called with the json (`Function(String)`) and should return a class instance | named constructor or static method `fromJson(Map<String, dynamic> json)` |
+| writeMethod |   No        | Method to "write" the class to String, int, double, bool, Map or List                                | `toJson()` method on an instance                |
+| importPath  |   No        | path from which the resulting model class file can import this class. Should be an "absolute" path.  | falls back to the generated `.model.dart` import                 |
 
 ### Example
 ```
@@ -42,11 +42,10 @@ For other Types it is assumed that a named constructor `fromJson(Map<String, dyn
 }
 ```
 
-# Build configuration
+# Build configuration (`build.yaml`)
 
 ## build to cache (default; not working with Flutter)
 
-`build.yaml`:
 ```
 targets:
   $default:
@@ -59,7 +58,6 @@ targets:
 
 ## build to source (necessary for Flutter)
 
-`build.yaml`:
 ```
 targets:
   $default:
