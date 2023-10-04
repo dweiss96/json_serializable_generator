@@ -6,14 +6,14 @@ issues: https://github.com/dweiss96/json_serializable_generator/issues
 version: 1.0.1
 
 environment:
-  sdk: '>=2.2.0 <3.0.0'
+  sdk: '>=3.0.5 <4.0.0'
 
 dependencies:
-  build: ^1.2.2
+  build: ^2.4.1
   meta: ^1.1.8
 
 dev_dependencies:
-  build_runner: ^1.7.4
-  build_test: ^0.10.12+1
+  build_runner: ^2.4.6
+  build_test: ^2.2.1
   pedantic: ^1.8.0
   test: ^1.6.4
