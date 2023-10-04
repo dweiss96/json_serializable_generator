@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:json_serializable_generator/src/type_analysis.dart';
 import 'utils.dart' as utils;
 
@@ -11,8 +10,8 @@ class TypeDefinition {
   final String import;
 
   TypeDefinition({
-    @required this.name,
-    @required this.type,
+    required this.name,
+    required this.type,
     this.read = '',
     this.write = '',
     this.import = '',
@@ -21,15 +20,15 @@ class TypeDefinition {
   String get importLine =>
       import.isEmpty ? "import './$type.model.dart';" : "import '$import';";
 
-  String get constructorParameter => '$type $formattedName,';
+  String get constructorParameter => '$type? $formattedName,';
   String get constructorInitializer => '_$formattedName = $formattedName,';
 
-  String get getter => '$type get $formattedName => _$formattedName;';
+  String get getter => '$type? get $formattedName => _$formattedName;';
 
-  String get copyParam => '$type $formattedName,';
+  String get copyParam => '$type? $formattedName,';
   String get copySetter => '$formattedName: $formattedName ?? _$formattedName,';
 
-  String get variableCodeLine => 'final $type _$formattedName;';
+  String get variableCodeLine => 'final $type? _$formattedName;';
 
   String get readCodeLine {
     if (read.trim().isEmpty) {
@@ -51,10 +50,10 @@ class TypeDefinition {
   String get writeCodeLine {
     if (write.trim().isEmpty) {
       if (!(isBasicType(type) || isMap(type) || isList(type))) {
-        return "'$name': _$formattedName.toJson(),";
+        return "'$name': _$formattedName?.toJson(),";
       }
       return "'$name': _$formattedName,";
     }
-    return "'$name': _$formattedName.$write(),";
+    return "'$name': _$formattedName?.$write(),";
   }
 }

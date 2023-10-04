@@ -1,8 +1,8 @@
 class SecondExternalResource {
-  String id;
-  String stringValue;
-  bool boolValue;
-  int intValue;
+  String? id;
+  String? stringValue;
+  bool? boolValue;
+  int? intValue;
 
   SecondExternalResource({
     this.id,

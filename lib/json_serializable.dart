@@ -18,7 +18,7 @@ class JsonSerializable {
       .map<String, T>((String k, dynamic v) => MapEntry<String, T>(k, v as T));
 
   /// Invoked for core types and for unknown ones having no explicit write method specified.
-  static T fromJson<T>(String json, {T seed}) {
+  static T fromJson<T>(String json, {T? seed}) {
     if (T == String) return json as T;
 
     if (seed is JsonModel) {

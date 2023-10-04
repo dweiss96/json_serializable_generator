@@ -1,8 +1,8 @@
 include: package:pedantic/analysis_options.yaml
 
 analyzer:
-  strong-mode:
-    implicit-dynamic: false
+  language:
+    strict-raw-types: true
   exclude:
     - test/data/**
     - example/**

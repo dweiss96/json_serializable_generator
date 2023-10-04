@@ -123,19 +123,19 @@ void main() {
     expect(deserialized.someList, equals(instance.someList));
     expect(deserialized.someMapping, equals(instance.someMapping));
 
-    expect(deserialized.simpleSchema.id, equals(instance.simpleSchema.id));
-    expect(deserialized.simpleSchema.isRequired, equals(instance.simpleSchema.isRequired));
-    expect(deserialized.simpleSchema.name, equals(instance.simpleSchema.name));
+    expect(deserialized.simpleSchema!.id, equals(instance.simpleSchema!.id));
+    expect(deserialized.simpleSchema!.isRequired, equals(instance.simpleSchema!.isRequired));
+    expect(deserialized.simpleSchema!.name, equals(instance.simpleSchema!.name));
 
-    expect(deserialized.someExternal.id, equals(instance.someExternal.id));
-    expect(deserialized.someExternal.stringValue, equals(instance.someExternal.stringValue));
-    expect(deserialized.someExternal.boolValue, equals(instance.someExternal.boolValue));
-    expect(deserialized.someExternal.intValue, equals(instance.someExternal.intValue));
+    expect(deserialized.someExternal!.id, equals(instance.someExternal!.id));
+    expect(deserialized.someExternal!.stringValue, equals(instance.someExternal!.stringValue));
+    expect(deserialized.someExternal!.boolValue, equals(instance.someExternal!.boolValue));
+    expect(deserialized.someExternal!.intValue, equals(instance.someExternal!.intValue));
     
-    expect(deserialized.anotherExternal.id, equals(instance.anotherExternal.id));
-    expect(deserialized.anotherExternal.stringValue, equals(instance.anotherExternal.stringValue));
-    expect(deserialized.anotherExternal.boolValue, equals(instance.anotherExternal.boolValue));
-    expect(deserialized.anotherExternal.intValue, equals(instance.anotherExternal.intValue));
+    expect(deserialized.anotherExternal!.id, equals(instance.anotherExternal!.id));
+    expect(deserialized.anotherExternal!.stringValue, equals(instance.anotherExternal!.stringValue));
+    expect(deserialized.anotherExternal!.boolValue, equals(instance.anotherExternal!.boolValue));
+    expect(deserialized.anotherExternal!.intValue, equals(instance.anotherExternal!.intValue));
 
     expect(instance.toJson(), equals(jsonDecode(json)));
   });

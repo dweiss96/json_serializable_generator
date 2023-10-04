@@ -36,7 +36,7 @@ class SerializableModelBuilder extends Builder {
         key,
         TypeDefinition(
           name: key,
-          type: typeDefinition['type'],
+          type: typeDefinition['type']!,
           read: typeDefinition['readMethod'] ?? '',
           write: typeDefinition['writeMethod'] ?? '',
           import: typeDefinition['importPath'] ?? '',
